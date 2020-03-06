@@ -10,13 +10,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+from function import text_process
 
 messages = pd.read_csv('C:/Users/narxi/py-crash-course/20-Natural-Language-Processing/smsspamcollection/SMSSpamCollection', sep='\t', names=['label','message'])
 
-def text_process(mess):
-    nopunc = [char for char in mess if char not in string.punctuation]
-    nopunc = ''.join(nopunc)
-    return [word for word in nopunc.split() if word.lower() not in stopwords.words('english')]
+# def text_process(mess):
+#     nopunc = [char for char in mess if char not in string.punctuation]
+#     nopunc = ''.join(nopunc)
+#     return [word for word in nopunc.split() if word.lower() not in stopwords.words('english')]
 
 pipeline = Pipeline([
     ('bow', CountVectorizer(analyzer=text_process)),

@@ -11,11 +11,13 @@ def text_process(mess):
 
 mdl = joblib.load('spam_model.pkl')
 
-messages = pd.read_csv('C:/Users/narxi/py-crash-course/20-Natural-Language-Processing/smsspamcollection/SMSSpamCollection', sep='\t', names=['label','message'])
+#messages = pd.read_csv('C:/Users/narxi/py-crash-course/20-Natural-Language-Processing/smsspamcollection/SMSSpamCollection', sep='\t', names=['label','message'])
 
-list = ['Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&Cs', 'Wow what', 'That is amazing', 'Seriously?', 'I dunno'] 
+list = ['Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&Cs'] 
 ser = pd.Series(list) 
 
 predictions = mdl.predict(ser)
 
-print(predictions)
+df = pd.DataFrame(predictions, columns=['1'])
+df = df.replace({'spam': 'Spam', 'ham': 'Ham'})
+ 
