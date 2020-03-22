@@ -1,23 +1,16 @@
-import string
 import joblib
-from nltk.corpus import stopwords
-
 import pandas as pd
+import numpy as np
 
-def text_process(mess):
-    nopunc = [char for char in mess if char not in string.punctuation]
-    nopunc = ''.join(nopunc)
-    return [word for word in nopunc.split() if word.lower() not in stopwords.words('english')]
+mdl = joblib.load('supply_model.pkl')
 
-mdl = joblib.load('spam_model.pkl')
-
-#messages = pd.read_csv('C:/Users/narxi/py-crash-course/20-Natural-Language-Processing/smsspamcollection/SMSSpamCollection', sep='\t', names=['label','message'])
-
-list = ['Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&Cs'] 
+list = ['Bone-screw internal spinal fixation system'] 
 ser = pd.Series(list) 
 
-predictions = mdl.predict(ser)
+prediction = mdl.predict(ser)
+prediction_score = mdl.predict_proba(ser)
 
-df = pd.DataFrame(predictions, columns=['1'])
-df = df.replace({'spam': 'Spam', 'ham': 'Ham'})
- 
+# df = pd.DataFrame(predictions)
+print(prediction)
+score = prediction_score
+print(np.around(np.amax(prediction_score, axis=1),decimals=2))

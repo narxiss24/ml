@@ -1,7 +1,5 @@
-import string
 import joblib
 import pandas as pd
-from nltk.corpus import stopwords
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
@@ -11,14 +9,15 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from function import text_process
+import pandas as pd
+from sqlalchemy import create_engine
 
-messages = pd.read_csv('C:/Users/narxi/py-crash-course/20-Natural-Language-Processing/smsspamcollection/SMSSpamCollection', sep='\t', names=['label','message'])
+engine = create_engine('mysql+pymysql://caremeasurement:p2mCH.$V]eTJCu!3@staging.cgj8ilbmhg0t.us-east-1.rds.amazonaws.com/classification')
 
-# def text_process(mess):
-#     nopunc = [char for char in mess if char not in string.punctuation]
-#     nopunc = ''.join(nopunc)
-#     return [word for word in nopunc.split() if word.lower() not in stopwords.words('english')]
+df = pd.read_sql_query('SELECT * FROM `supply_unique_match_name`', engine)
+print(df.head())
 
+#%%
 pipeline = Pipeline([
     ('bow', CountVectorizer(analyzer=text_process)),
     ('tfidf', TfidfTransformer()),
@@ -26,7 +25,7 @@ pipeline = Pipeline([
 ])
 
 msg_train, msg_test, label_train, label_test = \
-train_test_split(messages['message'], messages['label'], test_size=0.2)
+train_test_split(df['gmdnPTName'], df['supply_name'], test_size=0.2)
 
 pipeline.fit(msg_train,label_train)
 predictions = pipeline.predict(msg_test)
@@ -35,4 +34,4 @@ print(classification_report(predictions,label_test))
 
 #%%
 classifier = pipeline.fit(msg_train,label_train)
-joblib.dump(classifier, 'spam_model.pkl')
+joblib.dump(classifier, 'supply_model.pkl')

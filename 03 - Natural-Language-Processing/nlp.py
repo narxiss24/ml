@@ -180,7 +180,7 @@ joblib.dump(classifier, 'spam_model.pkl')
 mdl = joblib.load('spam_model.pkl')
 
 #%%
-predictions = mdl.predict(msg_test)
+predictions = mdl.predict_proba(msg_test)
 
 #%%
 print(predictions)
