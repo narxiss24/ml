@@ -4,7 +4,7 @@ import numpy as np
 
 mdl = joblib.load('supply_model.pkl')
 
-list = ['Bone-screw internal spinal fixation system'] 
+list = ['Bone-screw internal spinal fixation system, sterile'] 
 ser = pd.Series(list) 
 
 prediction = mdl.predict(ser)
