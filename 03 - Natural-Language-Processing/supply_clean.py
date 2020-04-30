@@ -7,13 +7,14 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from function import text_process
 from sqlalchemy import create_engine
 
-#%%
+# %%
 
-engine = create_engine('mysql+pymysql://caremeasurement:p2mCH.$V]eTJCu!3@staging.cgj8ilbmhg0t.us-east-1.rds.amazonaws.com/classification')
+engine = create_engine('CM_URL')
 
 df = pd.read_sql_query('SELECT * FROM `supply_unique_full_name`', engine)
 
-#%%
+# %%
+
 
 def drg_to_string(drg):
     drg_string = 'drg{}'.format(drg)
@@ -21,6 +22,7 @@ def drg_to_string(drg):
         return ''
     else:
         return drg_string
+
 
 def cost_to_string(cost):
     if pd.notna(cost):
@@ -47,30 +49,34 @@ def cost_to_string(cost):
     else:
         return ''
 
+
 def gmdnPTName_to_string(gmdnPTName):
     if gmdnPTName == None:
         return ''
     else:
         return gmdnPTName
-        
-#%%    
-        
+
+# %%
+
+
 df['drg'] = df['drg'].apply(drg_to_string)
-df['cost'] = df['cost'].apply(cost_to_string)     
+df['cost'] = df['cost'].apply(cost_to_string)
 df['gmdnPTName'] = df['gmdnPTName'].apply(gmdnPTName_to_string)
-    
-#%%
 
-df['X'] = df['hospital_supply_name'] + ' ' + df['gmdnPTName'] + ' ' + df['cost'] + ' ' + df['drg']
+# %%
 
-#%%
+df['X'] = df['hospital_supply_name'] + ' ' + \
+    df['gmdnPTName'] + ' ' + df['cost'] + ' ' + df['drg']
+
+# %%
 
 pipeline = Pipeline([
     ('bow', CountVectorizer(analyzer=text_process)),
     ('tfidf', TfidfTransformer()),
-    ('classifier', SGDClassifier(loss="log", alpha=0.00001, penalty="l2", max_iter=5, tol=None)),
+    ('classifier', SGDClassifier(loss="log",
+                                 alpha=0.00001, penalty="l2", max_iter=5, tol=None)),
 ])
 
-#%%
-classifier = pipeline.fit(df['X'],df['name'])
+# %%
+classifier = pipeline.fit(df['X'], df['name'])
 joblib.dump(classifier, 'supply_model.pkl')
