@@ -9,7 +9,8 @@ from sqlalchemy import create_engine
 
 # %%
 
-engine = create_engine('CM_URL')
+engine = create_engine(
+    'mysql+pymysql://[user]:[password]@[server]]/classification')
 
 df = pd.read_sql_query('SELECT * FROM `supply_unique_full_name`', engine)
 
