@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="caremeasurement" uuid="5f4f21e2-ed03-4446-bf12-44b125d31841">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>staging</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://staging.cgj8ilbmhg0t.us-east-1.rds.amazonaws.com:3306/classification</jdbc-url>
+    </data-source>
+  </component>
+</project>
