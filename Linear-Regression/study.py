@@ -6,9 +6,11 @@ y = (25, 33, 41, 53, 59, 70, 78, 86, 96)
 
 plt.scatter(x,y)
 
-z = np.polyfit(x, y, 500)
+z = np.polyfit(x, y, 1)
 p = np.poly1d(z)
 
 plt.plot(x, p(x), 'g-')
 
 plt.show()
+
+print(np.poly1d(p))
