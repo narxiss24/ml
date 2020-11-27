@@ -56,6 +56,11 @@ print(
 """
 Patients with typical angina has 5.77 times higher odds of having
 heart disease than those that are asymptomatic
+
+Patients with atypical angina has 2.13 times higher
+odds of having heart disease than those with typical angina
+(odds of atypical vs asymptomatic/odds of typical
+vs asymptomatic = 12.26/5.76)
 """
 )
 
@@ -73,6 +78,8 @@ print(expit(coef_constant + coef_logit))
 print(
 """
 Patients with typical angina has 68% higher probability of having
-heart disease than those that are asymptomatic
+heart disease than those that are asymptomatic ('higher probability'
+because when we look back at the odds, it was >1, if it was <1,
+it would then be 'lower probability')
 """
 )
