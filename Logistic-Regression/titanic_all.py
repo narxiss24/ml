@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
 # %% Reading CSV file
-train = pd.read_csv('/Logistic-Regression/titanic_train.csv')
+train = pd.read_csv('https://raw.githubusercontent.com/narxiss24/datasets/master/titanic_train.csv')
 
 # %% Heatmap to visualize outliers
 sns.heatmap(train.isnull(), yticklabels=False, cbar=False, cmap='viridis')
@@ -118,14 +118,13 @@ regressor_logistic = sm.Logit(endog=y.astype(float), exog=X.astype(float)).fit()
 regressor_logistic.summary()
 
 # %% Dropping non-significant predictors
-X = X.drop(['Parch', 'Fare', 'Queen Mary', 'Southampton'], axis=1)
+# X = X.drop(['Parch', 'Fare', 'Queen Mary', 'Southampton'], axis=1)
 
 # %% Using statsmodels
 
 regressor_logistic = sm.Logit(endog=y.astype(float), exog=X.astype(float)).fit()
 
 regressor_logistic.summary()
-np.exp(regressor_logistic.params)
 
 # %% Getting odd ratios
 np.exp(regressor_logistic.params)
