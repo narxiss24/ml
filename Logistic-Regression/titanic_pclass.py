@@ -20,9 +20,9 @@ print(mdl.summary())
 
 print(
     """
-    ====
-    Odds
-    ====
+====
+Odds
+====
     """
 )
 
