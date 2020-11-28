@@ -1,14 +1,22 @@
 import pandas as pd
 #import numpy as np
 #import statsmodels.api as sm
-#from statsmodels.api import add_constant
 #from scipy.special import expit
 
-pd.set_option('display.max_rows', None)
+#pd.set_option('display.max_rows', None)
 
 # Get data
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data')
 
 df.columns = ['age','sex','cp','trestbps','chol','fbs','restecg','thalach','exang','oldpeak','slope','ca','thal','hd']
 
-print(df.trestbps)
+# Drop rows that has '?' as missing values
+df = df[~(df == '?').any(axis=1)]
+
+list = ['sex', 'cp', 'fbs']
+
+for i in list:
+    pd.get_dummies(df[i], drop_first=True).rename(columns=lambda x: 'sex_' + str(x))
+
+df = pd.concat([df, dummies], axis=1)
+print(df)

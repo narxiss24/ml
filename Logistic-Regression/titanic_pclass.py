@@ -30,14 +30,16 @@ print(np.exp(mdl.params))
 
 print(
     """
-The odds for second class passengers to survive is 0.52 times the odds of those that 
-are in the first class, holding other independent variables fixed 
+The odds for second class passengers to survive is
+0.52 times the odds of those that are in the first
+class,holding other independent variables fixed
 
-The odds for second class passengers to survive is 48% less [(1-0.52)*100] than those 
-in the first class
+The odds for second class passengers to survive is
+48% less [(1-0.52)*100] than those in the first class
 
-The odds for second class passengers to survive is 2.89 times the odds of those that are
-in the third class (odds of 2nd/odds of 3rd = 0.52/0.18)
+The odds for second class passengers to survive is
+2.89 times the odds of those that are in the third
+class (odds of 2nd/odds of 3rd = 0.52/0.18)
     """
 )
 
@@ -55,10 +57,13 @@ print(expit(coef + mdl.params))
 
 print(
     """
-Passengers in the first class has a 74% probability of surviving
+Passengers in the first class has a 74% probability
+of surviving
 
-Passengers in the second class has a 47% probability of surviving
+Passengers in the second class has a 47% probability
+of surviving
 
-Passengers in the third class has a 24% probability of surviving
+Passengers in the third class has a 24% probability
+of surviving
     """
 )
