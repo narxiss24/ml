@@ -13,10 +13,14 @@ df.columns = ['age','sex','cp','trestbps','chol','fbs','restecg','thalach','exan
 # Drop rows that has '?' as missing values
 df = df[~(df == '?').any(axis=1)]
 
-list = ['sex', 'cp', 'fbs']
+column_list = ['sex', 'cp', 'fbs']
 
-for i in list:
-    pd.get_dummies(df[i], drop_first=True).rename(columns=lambda x: 'sex_' + str(x))
+for i in column_list:
+    dummies = pd.get_dummies(df[i], drop_first=True).rename(columns=lambda x: i + str(int(x)))
+    
+    df.drop(i, axis=1, inplace=True)
+    
+    df = df.merge(dummies, left_index=True, right_index=True)
+    
 
-df = pd.concat([df, dummies], axis=1)
 print(df)
