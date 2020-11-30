@@ -11,7 +11,7 @@ df.columns = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach
               'thal', 'hd']
 
 # For hd, set 0 = healthy, 1 = heart disease
-df['hd'] = df['hd'].apply(lambda x: 1 if x < 1 else 0)
+df['hd'] = df['hd'].apply(lambda x: 1 if x > 0 else x)
 
 # Set chest pains as dummy variables and rename cols
 cp = pd.get_dummies(df['cp'])
@@ -56,15 +56,18 @@ print(np.exp(coef_logit))
 print(
     """
 The odds of having heart disease for patients with typical 
-angina is 5.77 times the odds of those that are asymptomatic,
+angina is 0.17 times the odds of those that are asymptomatic,
 holding other independent variables fixed 
 
-The odds of having heart disease is 477% higher [(5.77-1)*100]
+The odds of having heart disease is 83% lower [(1-0.17)*100]
 for patients with typical angina than those that are asymptomatic
 
-The odds of having heart disease for patients with atypical
-angina is 2.13 times the odds of those with typical angina 
-(odds of cp2/odds of cp1 = 12.26/5.76)
+The odds of having heart disease for patients with typical
+angina is 2.13 times the odds of those with atypical angina 
+(odds of cp1/odds of cp2 = 0.17/0.08)
+
+The odds of having heart disease is 113% higher [(2.13-1)*100]
+for patients with typical angina than those with atypical angina
     """
 )
 
@@ -81,10 +84,17 @@ print(expit(coef_constant + coef_logit))
 
 print(
     """
-Patients who are asymptomatic has 12% probability of having 
+Patients who are asymptomatic has 89% probability of having 
+heart disease (doesn't make sense, maybe asymptomatic
+during a follow up visit)
+
+Patients with typical angina has 32% probability of having 
 heart disease
 
-Patients with typical angina has 68% probability of having 
+Patients with atypical angina has 18% probability of having 
+heart disease
+
+Patients with non-anginal pain has 21% probability of having 
 heart disease
     """
 )
