@@ -18,7 +18,7 @@ def get_data():
     df = df[~(df == '?').any(axis=1)]
 
     df = df[['hd', 'sex', 'oldpeak', 'thalach', 'ca', 'exang']]
-
+    
     df = pd.get_dummies(df, columns=['hd', 'sex', 'exang', 'ca'], drop_first=True, prefix_sep='')
 
     return df
@@ -45,7 +45,7 @@ def main():
 
     print(
         """
-oldpeak: ST depression induced by exercise relative to rest
+oldpeak: ST depression induced by exercise relative to rest 
 thalach: maximum heart rate achieved
 sex: (1 = male; 0 = female)
 ca: number of major vessels (0-3) colored by flourosopy

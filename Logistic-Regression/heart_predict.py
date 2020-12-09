@@ -1,8 +1,8 @@
-import heart_all
 import statsmodels.api as sm
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+import heart_all
 
 df = heart_all.get_data()
 
@@ -25,6 +25,6 @@ print('Predictions:', prediction)
 print(confusion_matrix(y_test.values, prediction))
 print(accuracy_score(y_test.values, prediction))
 
-plt.plot(yhat, y_test.values, 'bo')
+#plt.plot(yhat, y_test.values, 'bo')
 
-plt.show()
+#plt.show()
