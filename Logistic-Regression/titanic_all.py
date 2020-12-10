@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
 
 # %% Reading CSV file
 train = pd.read_csv('https://raw.githubusercontent.com/narxiss24/datasets/master/titanic_train.csv')
@@ -11,9 +12,14 @@ train = pd.read_csv('https://raw.githubusercontent.com/narxiss24/datasets/master
 # %% Heatmap to visualize outliers
 sns.heatmap(train.isnull(), yticklabels=False, cbar=False, cmap='viridis')
 
+plt.show()
+
 # %% Visualizing categorical variables
 sns.set_style('whitegrid')
 sns.countplot(x='Survived', hue='Pclass', data=train)
+
+plt.show()
+
 
 # %%
 sns.countplot(x='SibSp', data=train)
@@ -22,6 +28,7 @@ sns.countplot(x='SibSp', data=train)
 sns.distplot(train['Age'].dropna(), bins=30)
 train['Age'].dropna().hist(bins=30)
 
+plt.show()
 # %%
 train['Fare'].hist(bins=40, figsize=(10, 4))
 
